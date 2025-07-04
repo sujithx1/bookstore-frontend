@@ -154,28 +154,42 @@ const handleSuccessPayment = async () => {
           <div>
             <h2 className="text-xl font-bold text-[#5e4636] mb-4">📍 Select Address</h2>
             <div className="space-y-3">
-              {user?.Address?.map((addr) => (
-                <label
-                  key={addr._id}
-                  className={`block border rounded-md p-4 cursor-pointer ${
-                    selectedAddress === addr._id ? 'border-[#a67c52] bg-[#fffaf4]' : 'border-[#d6c8b8]'
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    name="address"
-                    className="mr-2 accent-[#a67c52]"
-                    value={addr._id}
-                    checked={selectedAddress === addr._id}
-                    onChange={() => setSelectedAddress(addr._id)}
-                  />
-                  <span className="font-semibold">{addr.name}</span>
-                  <div className="text-sm text-[#7c6652]">
-                    {addr.line}, {addr.state} - {addr.pincode}
-                  </div>
-                  <div className="text-sm text-[#9d8b7a]">📞 {addr.phone}</div>
-                </label>
-              ))}
+             {Array.isArray(user?.Address) && user.Address.length > 0 ? (
+  user.Address.map((addr) => (
+    <label
+      key={addr._id}
+      className={`block border rounded-md p-4 cursor-pointer mb-2 ${
+        selectedAddress === addr._id
+          ? 'border-[#a67c52] bg-[#fffaf4]'
+          : 'border-[#d6c8b8]'
+      }`}
+    >
+      <input
+        type="radio"
+        name="address"
+        className="mr-2 accent-[#a67c52]"
+        value={addr._id}
+        checked={selectedAddress === addr._id}
+        onChange={() => setSelectedAddress(addr._id)}
+      />
+      <span className="font-semibold">{addr.name}</span>
+      <div className="text-sm text-[#7c6652]">
+        {addr.line}, {addr.state} - {addr.pincode}
+      </div>
+      <div className="text-sm text-[#9d8b7a]">📞 {addr.phone}</div>
+    </label>
+  ))
+) : (
+  <div className="text-gray-500 italic">No address found. Please add one.</div>
+)}
+
+<button
+  onClick={()=>navigate('/profile/addresses')}
+  className="mt-4 px-4 py-2 bg-[#a67c52] text-white rounded hover:bg-[#8a6542]"
+>
+  ➕ Add Address
+</button>
+
             </div>
           </div>
 

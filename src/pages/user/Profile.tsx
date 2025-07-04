@@ -48,8 +48,11 @@ console.log(user);
             <div className="flex items-center gap-1 mt-2 text-sm text-gray-600">
               <FaMapMarkerAlt className="text-blue-500" />
 <span>
-  {user?.Address ? `${user.Address[user.Address.length-1].city}, ${user.Address[user.Address.length-1].state}` : 'Location'}
-</span>            </div>
+  {user?.Address?.length
+    ? `${user.Address[user.Address.length - 1]?.city || "city"}, ${user.Address[user.Address.length - 1]?.state || "state"}`
+    : "Location"}
+</span>
+         </div>
           </div>
 
           {/* Wallet */}

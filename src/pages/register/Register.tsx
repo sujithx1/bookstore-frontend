@@ -60,7 +60,10 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         toast.success("success")
         navigate('/login')
       })
-      // TODO: Submit to API or dispatch Redux action
+      .catch((err)=>{
+        toast.error(err.message)
+      })
+      
     }
   };
 
